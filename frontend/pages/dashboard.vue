@@ -29,7 +29,7 @@
       </a>
 
        <a class="navbar-item">
-        My Subscriptions
+        My Channel Subscriptions
       </a>
 
     </div>
