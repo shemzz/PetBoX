@@ -44,15 +44,12 @@ async signup ({request, auth, response}) {
         }
     }
 
-    async me ({ auth, response }) {
+    async me ({ auth, response}) {
         const user = await User.query()
             // .where('id', auth.current.user.id)
             .firstOrFail()
     
-        return response.json({
-            success: true,
-            user: user
-        })
+        return response.json(user)
     }
 
     async updateProfile ({ request, auth, response }) {

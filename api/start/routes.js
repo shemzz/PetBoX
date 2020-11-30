@@ -36,7 +36,7 @@ Route.group(() => {
     Route.get('/channels_to_follow', 'ChannelController.channelsToFollow')
 
 //follow a channel
-Route.post('/follow/:id', 'ChannelController.follow')
+Route.post('/channel/follow', 'ChannelController.follow')
 
 // unfollow channel
 Route.delete('/unfollow/:id', 'ChannelController.unFollow')
