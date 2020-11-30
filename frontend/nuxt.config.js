@@ -14,6 +14,12 @@ export default {
       { rel: 'stylesheet', href: '/css/all.css'}
     ]
   },
+  mode: 'universal',
+  /*
+  ** Nuxt target
+  ** See https://nuxtjs.org/api/configuration-target
+  */
+  target: 'server',
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
@@ -28,7 +34,6 @@ export default {
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
-    // '@nuxtjs/fontawesome',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
