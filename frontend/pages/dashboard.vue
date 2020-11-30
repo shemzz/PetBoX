@@ -94,6 +94,17 @@
             <div class="level">
               <div class="level-item">
                 <div class="">
+                  <!-- <div class="heading">follow</div> -->
+                  <button
+                    class=" button is-dark is-small"
+                    @click="followChannel(channel.id, channel.name, channel.topics, channel.followers)"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+              <div class="level-item">
+                <div class="">
                   <div class="heading">Followers</div>
                   <div class="title is-5 has-text-white">
                     {{ channel.followers }}
@@ -105,17 +116,6 @@
                   <div class="heading">Topics</div>
                   <div class="title is-5 has-text-white">
                     {{ channel.topics }}
-                  </div>
-                </div>
-              </div>
-              <div class="level-item">
-                <div class="">
-                  <div class="heading">follow</div>
-                  <div
-                    class="title is-5 has-text-white"
-                    @click="followChannel(channel.id, channel.name, channel.topics, channel.followers)"
-                  >
-                    +
                   </div>
                 </div>
               </div>
