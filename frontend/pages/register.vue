@@ -2,13 +2,7 @@
   <div id="login">
     <div class="login-card">
       <div class="card-title">
-        <h1>PetBox Sign up</h1>
-        <h4 class="subtitle -s-6">{{message}}</h4>
-        <Notification
-          :message="notification.message"
-          :type="notification.type"
-          v-if="notification.message"
-        />
+        <h1>PetBox Sign up</h1>        
       </div>
 
       <div class="content">
@@ -75,37 +69,18 @@
 </template>
 
 <script>
-import Notification from "~/components/Notification";
 
     export default {
         name: 'SignUpForm',
-        components: {
-            Notification,
-        },
+
         data() {
           return {
             username: '',
                 email: '',
                 password: '',
-                  message: '',
-                notification: {
-                    message: '',
-                    type: '',
-                },
             };
         },
-        computed: {
-            // isFormValid() {
-            //     return Object.keys(this.fields).every(key => this.fields[key].valid);
-            // },
-        },
-        // beforeRouteEnter(to, from, next) {
-        //   if (localStorage.petbox_token){
-        //      this.token = localStorage.petbox_token;
-        //     return token ? next('/') : next();
-        //   }
-
-        // },
+      
         methods: {
             async signup() {
                 try {
@@ -114,10 +89,10 @@ import Notification from "~/components/Notification";
           email: this.email,
           password: this.password,
         };
-
+        //send request to server
         let response = await this.$axios.$post("signup", data);
 
-
+// use anuxt auth module
         if (response.success) {
           this.$auth.loginWith("local", {
             data: {

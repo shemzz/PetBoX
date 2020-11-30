@@ -140,7 +140,6 @@ export default {
   data() {
     return {
       showMobileMenu: false,
-      myChannels:[],
       channels: [
         { id: 1, name: 'Cat Updates', followers: '25000', topics: '70' },
         { id: 2, name: 'Fish Updates', followers: '4600', topics: '30' },
@@ -151,6 +150,8 @@ export default {
       subscriptions: [{ id: 1, name: 'Dog Updates' }],
     }
   },
+  // :::: Fetch from Live server::::
+
   // async asyncData({ $axios }) {
   //   try {
   //     let response = await $axios.$get('channels_to_follow')
