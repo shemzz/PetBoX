@@ -61,12 +61,12 @@
         </div>
         <div class="level-right">
           <div class="level-item">
-            <button type="button" class="button is-small">SEE ALL >></button>
+            <button type="button" class="button is-small" v-if="(subscriptions.length > 4)">SEE ALL >></button>
           </div>
         </div>
       </div>
       <div class="columns is-multiline mb-6">
-        <div class="column is-3" v-for="sub in subscriptions" :key="sub.id">
+        <div class="column is-3" v-for="sub in subscriptions.slice(0, 4)" :key="sub.id">
           <div class="panel">
             <p class="panel-heading">{{sub.name}}</p>
             <div class="panel-block">
@@ -81,8 +81,8 @@
       <div class="subtitle is-4">Channels You may Like</div>
       <div class="columns is-multiline">
         <div
-          class="column"
-          v-for="channel in channels"
+          class="column is-2"
+          v-for="channel in channels.slice(0, 6)"
           :key="channel.id"
         >
           <div class="box has-background-danger">
@@ -148,7 +148,7 @@ export default {
         { id: 4, name: 'Parrot Updates', followers: '2300', topics: '41' },
         { id: 5, name: 'Mouse Updates', followers: '2000', topics: '8' },
       ],
-      subscriptions: [{ id: 1, name: 'Catty Updates' }],
+      subscriptions: [{ id: 1, name: 'Dog Updates' }],
     }
   },
   // async asyncData({ $axios }) {
@@ -170,16 +170,14 @@ export default {
    followChannel(theId, theName, theTopics, theFollowers){
       const apps = this.channels
       
-//remove item with selected
+//set item with click
 const itemToBeRemoved = {id:theId, name:theName, followers: theFollowers, topics: theTopics}
 //add to the list of subscribed channels
-this.subscriptions.push({id: theId, name: theName, topics:theTopics, followers:theFollowers})
-console.table(this.subscriptions)
+this.subscriptions.unshift({id: theId, name: theName, topics:theTopics, followers:theFollowers})
 
+//the subscribed channel from list of recommended channels
 apps.splice(apps.findIndex(a => a.id === itemToBeRemoved.id) , 1)
 
-//print result
-console.table(apps)
    }
   },
 }
