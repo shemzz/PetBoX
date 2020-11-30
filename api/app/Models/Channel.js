@@ -11,7 +11,7 @@ class Channel extends Model {
     followers() {
       return this.belongsToMany(
         'App/Model/Channel',
-        'channel_id'
+        'channel_id',
         'follower_id',
       ).pivotTable('followers')
     }

@@ -2,9 +2,9 @@
 <div>
        <nav class="navbar is-fixed-top is-danger" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item is-size-3-desktop" href="https://bulma.io">
+    <nuxt-link class="navbar-item is-size-3-desktop" to="/">
       PETBoX
-    </a>
+    </nuxt-link>
 
     <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample"
     v-bind:class="{ 'is-active': showMobileMenu }"
@@ -34,7 +34,16 @@
 
     </div>
 
-    <div class="navbar-end">
+    <div class="navbar-end" v-if="$auth.loggedIn">
+      <a class="navbar-item">
+        {{$auth.user.email}}
+      </a>
+
+       <a class="navbar-item">
+        Sign out
+      </a>
+    </div>
+    <div class="navbar-end" v-else>
       <a class="navbar-item">
         My Profile
       </a>

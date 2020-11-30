@@ -1,32 +1,138 @@
 <template>
-    <div id="login">
-        <div class="login-card">
-      
-          <div class="card-title">
-            <h1>PetBox Sign up</h1>
-          </div>
-      
-          <div class="content">
-            <form method="POST" action="#">
-              <input id="username" type="text" name="username" title="username" placeholder="Username" required autofocus>
-              <input id="email" type="email" name="email" title="email" placeholder="Email" required autofocus>
-              <input id="password" type="password" name="password" title="password" placeholder="Password" required>
-              <input id="confirmpassword" type="password" title="password" placeholder="Confirm Password" required>
-
-              
-              <div class="level options">
-                <div class="checkbox level-left">
-                  <input type="checkbox" id="checkbox" class="regular-checkbox">
-                  <label for="checkbox"></label>
-                  <span>I accept <nuxt-link to="#">terms & conditions</nuxt-link></span>
-                </div>
-      
-              </div>
-      
-              <button type="submit" class="btn btn-danger">Register</button>
-            </form> <br>
-            <small>Already have an account? <nuxt-link to="/">Login here</nuxt-link></small>
-          </div>
-        </div>
+  <div id="login">
+    <div class="login-card">
+      <div class="card-title">
+        <h1>PetBox Sign up</h1>
+        <h4 class="subtitle -s-6">{{message}}</h4>
+        <Notification
+          :message="notification.message"
+          :type="notification.type"
+          v-if="notification.message"
+        />
       </div>
+
+      <div class="content">
+        <form method="POST" @submit.prevent="signup">
+          <input
+            id="username"
+            type="text"
+            name="username"
+            v-model="username"
+            title="username"
+            placeholder="Username"
+          />
+          <!-- <span v-show="errors.has('username')" class="is-danger">{{ errors.first('username') }}</span> -->
+
+          <input
+            id="email"
+            type="email"
+            name="email"
+            v-model="email"
+            title="email"
+            placeholder="Email"
+            autofocus
+          />
+          <!-- <span v-show="errors.has('email')" class="is-danger">{{ errors.first('email') }}</span> -->
+
+          <input
+            id="password"
+            type="password"
+            v-model="password"
+            name="password"
+            title="password"
+            placeholder="Password"
+          />
+          <!-- <span v-show="errors.has('password')" class="is-danger">{{ errors.first('password') }}</span> -->
+
+          <input
+            id="confirmpassword"
+            type="password"
+            title="password"
+            placeholder="Confirm Password"
+          />
+          <!-- <span v-show="errors.has('password')" class="is-danger">{{ errors.first('password') }}</span> -->
+
+          <div class="level options">
+            <div class="checkbox level-left">
+              <input type="checkbox" id="checkbox" class="regular-checkbox" />
+              <label for="checkbox"></label>
+              <span
+                >I accept <nuxt-link to="#">terms & conditions</nuxt-link></span
+              >
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-danger">Register</button>
+        </form>
+        <br />
+        <small
+          >Already have an account?
+          <nuxt-link to="/">Login here</nuxt-link></small
+        >
+      </div>
+    </div>
+  </div>
 </template>
+
+<script>
+import Notification from "~/components/Notification";
+
+    export default {
+        name: 'SignUpForm',
+        components: {
+            Notification,
+        },
+        data() {
+          return {
+            username: '',
+                email: '',
+                password: '',
+                  message: '',
+                notification: {
+                    message: '',
+                    type: '',
+                },
+            };
+        },
+        computed: {
+            // isFormValid() {
+            //     return Object.keys(this.fields).every(key => this.fields[key].valid);
+            // },
+        },
+        // beforeRouteEnter(to, from, next) {
+        //   if (localStorage.petbox_token){
+        //      this.token = localStorage.petbox_token;
+        //     return token ? next('/') : next();
+        //   }
+
+        // },
+        methods: {
+            async signup() {
+                try {
+        let data = {
+          username: this.username,
+          email: this.email,
+          password: this.password,
+        };
+
+        let response = await this.$axios.$post("signup", data);
+
+
+        if (response.success) {
+          this.$auth.loginWith("local", {
+            data: {
+              email: this.email,
+              password: this.password
+            }
+
+          }).then(()=>
+          this.$router.push("/dashboard"));
+        }  
+      } catch (err) {
+        console.log(err);
+      }
+
+    }
+        }
+    };
+</script>

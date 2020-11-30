@@ -1,5 +1,4 @@
 'use strict'
-
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -26,13 +25,26 @@ Route.post('/signup', 'UserController.signup')
 //user login
 Route.post('/login', 'UserController.login')
 
-//show recommended channels to user
 Route.group(() => {
+  Route.get('/me', 'UserController.me')
+  Route.put('/update_profile', 'UserController.updateProfile')
+})
+  .prefix('account')
+  // .middleware(['auth:jwt'])
+
+//show recommended channels to user
     Route.get('/channels_to_follow', 'ChannelController.channelsToFollow')
-}).prefix('channels')
 
 //follow a channel
 Route.post('/follow/:id', 'ChannelController.follow')
 
 // unfollow channel
 Route.delete('/unfollow/:id', 'ChannelController.unFollow')
+
+// create a post
+Route.post('/post', 'PostController.post').middleware(['auth:jwt'])
+
+// single post
+Route.get('/posts/:id', 'PostController.show')
+
+Route.get('/allchannels', 'ChannelController.all')

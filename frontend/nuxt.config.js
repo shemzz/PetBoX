@@ -1,3 +1,4 @@
+const URL = 'http://localhost:3334/'
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
@@ -40,16 +41,40 @@ export default {
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
+    '@nuxtjs/auth'
   ],
-  fontawesome: {
-    icons: {
-      solid: true,
-      brands: true
+  router: {
+    // middleware: ['auth']
+  },
+  
+  auth: {
+    // plugins: [ { src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js' ],
+    strategies:{ local: 
+      {
+        endpoints: {
+            login: {
+                url: 'login',
+                method: 'post',
+                propertyName: 'token'
+            },
+            user: {
+                url: 'account/me',
+                method: 'get',
+                propertyName: 'user'
+            },
+            logout: false
+        },
+        tokenType: '',
+        // tokenRequired: true,
     }
   },
 
+},
+
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
+  axios: {
+    baseURL: URL
+  },
 
   // Content module configuration (https://go.nuxtjs.dev/config-content)
   content: {},
